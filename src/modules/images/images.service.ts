@@ -52,9 +52,6 @@ export class ImagesService {
       };
     }
 
-    item.hasImage = true;
-    await item.save();
-
     return {
       itemId,
       isValid: true,

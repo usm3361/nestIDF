@@ -1,32 +1,40 @@
-import { DataTypes } from 'sequelize';
-import {
-  Column,
-  Min,
-  Model,
-  NotEmpty,
-  Table,
-} from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
-@Table
+@Table({ tableName: 'items', timestamps: false })
 export class Item extends Model {
-  @NotEmpty({ msg: 'name is required and cannot be empty.' })
   @Column({
-    unique: true,
+    type: DataType.STRING(255),
+    primaryKey: true,
+  })
+  declare id: string;
+
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: false,
   })
   declare name: string;
 
-  @NotEmpty({ msg: 'type is required and cannot be empty.' })
-  @Column
+  @Column({
+    type: DataType.STRING(255),
+    allowNull: false,
+  })
   declare type: string;
 
-  @Min(0)
-  @Column(DataTypes.INTEGER)
-  declare quantity: Number;
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  declare quantity: number;
 
-  @Min(1)
-  @Column
-  declare pricePerUnit: Number;
+  @Column({
+    type: DataType.DECIMAL(10, 2),
+    allowNull: false,
+  })
+  declare pricePerUnit: number;
 
-  @Column
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
   declare hasImage: boolean;
 }

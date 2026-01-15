@@ -1,16 +1,54 @@
-import { IsNotEmpty, Min } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsBoolean,
+  IsOptional,
+  Min,
+} from 'class-validator';
+
 export class CreateItemDto {
-  @IsNotEmpty()
-  name: String;
+  @IsString()
+  id: string;
 
-  @IsNotEmpty()
-  type: String;
+  @IsString()
+  name: string;
 
-  @Min(0, { message: 'Minimum quantity is 0' })
-  quantity: Number;
+  @IsString()
+  type: string;
 
-  @Min(1, { message: 'Price must be greater than 1' })
-  pricePerUnit: Number;
+  @IsNumber()
+  @Min(0)
+  quantity: number;
 
-  hasImag: boolean;
+  @IsNumber()
+  @Min(0)
+  pricePerUnit: number;
+
+  @IsOptional()
+  @IsBoolean()
+  hasImage?: boolean;
+}
+
+export class UpdateItemDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  type?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  quantity?: number;
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  pricePerUnit?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  hasImage?: boolean;
 }

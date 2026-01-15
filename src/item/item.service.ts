@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { Item } from './item.model';
 import { InjectModel } from '@nestjs/sequelize';
@@ -8,11 +7,10 @@ import { InjectModel } from '@nestjs/sequelize';
 export class ItemService {
   constructor(
     @InjectModel(Item)
-    private userModel: typeof Item,
+    private itemModel: typeof Item,
   ) {}
-
-  async create(createItemDto: CreateItemDto) {
-    return 'This action adds a new item';
+  async createItem(item: Item) {
+    return await this.itemModel.create({ ...item });
   }
 
   findAll() {
